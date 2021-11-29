@@ -127,16 +127,17 @@ The tag-wise confusion matrix, F1-score, precision and recalls results for HMM V
 ![f1-score_hmm](https://user-images.githubusercontent.com/8979477/143825072-c0a701a0-a1ce-42e7-a8c2-a22b9f0dbfb2.png)
 
 The f-score for I and B tags is better however it seems pretty good for O tag since O is the most frequent tag.
-Analysis of results
+
+Summary of results:
 From above results, f1-score, it is not recommended to continue using HMM and Viterbi approach for Named Entity Recognition, since the pitfall of HMM model is that it is not flexible enough to unknown words as well as any new vocabulary. It is possible to consider the previous word is a B tag, then next tag is an O tag, then the likelihood of having an I tag or O tag more than a B tag. However this consideration is not sufficient to generalize and improve HMM with Viterbi. 
 
 We could use additional features such as the first letter is a capital letter, all letters are capital letters, the previous word is a hyphen, or next word is a number, previous word + next word is an alphanumeric, all of which can act as better features for working with HMM. The idea is frequencies for each of these new features and their likelihood of being assigned a tag under a 5-gram approach; without a pretrained model, the HMM model might survive for small problems but for small, limited real world applications.
 
-#### IB Tag sequence without an O tag with ”en_core_web_md”:
+### IB Tag sequence without an O tag with ”en_core_web_md”:
 
-Given that Data analysis and statistical analysis of data sets surrounding words, tags and their corresponding frequencies from the above sections, I found that it is perhaps better to ignore O tag. I read about this sometime back as a quick, hurried approach in Named Entity tagging. Oftentimes, knowledge required to derive entities from understanding language is not available, it might be easier to give preference to least frequent tag/label. The tags that are considered are I, B tags only. Once after prediction of I, B tags is complete, we could assume all of the remaining untagged words are O tags.
+Given that Data analysis and statistical analysis of data sets surrounding words, tags and their corresponding frequencies from the above sections, I found that it is perhaps better to ignore O tag. The tags that are considered are I, B tags only. Once after prediction of I, B tags is complete, we could assume all of the remaining untagged words are O tags.
 
-So in this approach, I just trained the en_core_web_md model using the SpACY library and extracted entities (with start and end ids for each word in a sentence) and processed it through a minimalistic SpACY approach.
+So in this approach, I trained the en_core_web_md model using the SpACY library and extracted entities (with start and end ids for each word in a sentence) and processed it through a minimalistic SpACY approach.
 
 Evaluation
 The validation during model training task, the precision, f1-score and recall scores are as follows for the I, B tags for NER task:
@@ -154,8 +155,9 @@ And finally on calculating tag-wise confusion matrix, f1-score, precision and re
 
 The f1-score is very low and the true positives are significantly low and almost zero. This model and approach is not suitable and hence should not be considered.
 
-The only takeaway is that an O tag is very important in recognizing frequent sequence patterns towards training the model towards the NER task for this dataset with IOB tags.
-BIO tag sequence with ”en_core_web_md”:
+Summary of results: an O tag is very important in recognizing frequent sequence patterns towards training the model towards the NER task for this dataset with IOB tags.
+
+### BIO tag sequence with ”en_core_web_md”:
 
 Given that Data analysis and statistical analysis of data sets surrounding words, tags and their corresponding frequencies and based on results from IB tag sequence from above section, the next natural assumption is to include O tag nevertheless.
 
@@ -181,7 +183,7 @@ Additionally, upon tag-wise confusion matrix, f1-score, precision and recall, wh
 
 Summary of results: this model is not suitable for Named Entity tagging for Bioinformatics data. The vocabulary consists of too many rare words and clearly the model is not adaptable to unknown or rare words that are significantly different from words that do exist in vocabulary. Due to the fact that there are 27000+ words in this dataset, most of them with very different subwords(such as names originating from chemistry, biology), it could be helpful to use a more domain specific trained model. 
 
-#### BioBERT 
+### BioBERT 
 After a little bit of research on Google scholar and NIH, BioBERT is a fast, and vastly used model in Bioinformatics. BioBERT used BioInformatics data and is different from BERT. The difference lies in first considering subwords and finally enhancing the word2Vector embeddings for the bioinformatics data. This seemed a reasonable direction to explore, without hoping much too soon.
 
 A special case to consider, for example, the least common words in dataset provided for this homework, 'K713','hypercholesterolemic','lutein','P69','conference','Talk','Tele','cruciform','TE105'. They are not only least common, they need special domain specific knowledge for subword tokenization, which is very different as well as difficult from that of other common English word tokenizations. Thus BioBERT makes for a special case and is more reasonable to explore. This also complies with the fact that domain specific expertise adds additional information required to understand the Named Entity tags and vice versa. The reverse case is : to represent knowledge and “reason” from a medical journal text corpus, Named entity recognition is required for identifying domain specific instances. To rephrase the reverse case, for domain specific knowledge mining, we need Named Entity recognition as a prerequisite. 
@@ -198,11 +200,11 @@ Upon tag-wise results with confusion matrix, f1-score, precision and recall are 
 
 ![cm_biobert](https://user-images.githubusercontent.com/8979477/143825052-dc1b7201-e798-4e9f-a489-2ccc8ae7628e.png)
 
-Key takeaway from this is that POS tags are important information to identifying Named Entity tags and yet having additional features would contribute better. Additionally when training smaller models over BERT/BERT extended models, the need for more data seems one expectation. There are additional cases upon researching a little further. The structure considerations: in most of the predictions from above three tasks, some proteins are almost always recognized correctly due to the co-occurrence with certain words. They are more likely to occur with other rare words. However, the language of proteins in chemistry and biological data seems to contribute more intricately towards co-occurrence. That is to say the representation style, structure, format, sequence of capital letters with numbers to showcase a chemical compound or a double helix structure, symbolic representation contribute significantly towards linguistic tasks. For example a structure of gene, might naturally suggests that TE105 is a representation of 105-nt TE
+Summary of results: POS tags are important information to identifying Named Entity tags and yet having additional features would contribute better. Additionally when training smaller models over BERT/BERT extended models, the need for more data seems one expectation. There are additional cases upon researching a little further. The structure considerations: in most of the predictions from above three tasks, some proteins are almost always recognized correctly due to the co-occurrence with certain words. They are more likely to occur with other rare words. However, the language of proteins in chemistry and biological data seems to contribute more intricately towards co-occurrence. That is to say the representation style, structure, format, sequence of capital letters with numbers to showcase a chemical compound or a double helix structure, symbolic representation contribute significantly towards linguistic tasks. For example a structure of gene, might naturally suggests that TE105 is a representation of 105-nt TE
 (TE105).[https://lib.dr.iastate.edu/cgi/viewcontent.cgi?article=1040&context=plantpath_pubs ]. So if a word occurred such as “105-nt TE
 (TE105)”, a pretrained model over biomedical/bioinformatics text corpus might be more likely to recognize this word and identify subwords for text representation. Navigating a little outside scope of this topic, the article [https://bair.berkeley.edu/blog/2019/11/04/proteins/] suggests that understanding protein structures is considered similar to a Linguistics task. This is sufficient evidence to infer that any domain specific knowledge representation requires significant understanding of underlying structures whether the data is a biomedical textual data or as complex as a domain specific representation such as that of proteins, DNA bindings in a freeform text.
 
-#### Other methods attempted, but did not reach the point of generating tags.
+### Other methods attempted, but did not reach the point of generating tags.
 
 Attempted to explore pretraining a model from scratch however, due to insufficient resources such as computational resources, I could not conduct a pretrained model for Bioinformatics data from a PubMed dataset that could improve the NER task and f1-scores over this dataset. But including an additional feature such as “chunks” for POS tags feature and additionally using domain specific tag information such as protein, gene, or even simpler binary tag classification such as B-BIO, B-CHEM, B-GENE, B-PROT, B-DNA may be helpful, similar to the case of B-PER, B-GEO etc.
 I attempted Word Vector embeddings to further improve BioBERT, which seemed to be an even better approach. However this task requires domain-specific word embeddings as I came across this informative article: https://www.nature.com/articles/s41597-019-0055-0  
