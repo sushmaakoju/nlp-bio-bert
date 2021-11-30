@@ -31,10 +31,11 @@ Required features:
 - [Sequence Labeling for Parts of Speech and Named Entities:  ](https://web.stanford.edu/~jurafsky/slp3/8.pdf)
 - [Hidden Markov Models:  ](https://web.stanford.edu/~jurafsky/slp3/A.pdf)
 - [Viterbi algorithm: ](https://en.wikipedia.org/wiki/Viterbi_algorithm#Pseudocode)
-
-#### Analysis:
-- From above results, it is not recommended to continue using HMM and Viterbi approach for Named Entity Recognition, since the very pitfall of HMM model is that it is not flexible enough to unknown words as well as any new vocabulary words. It is possible to consider the previous word is a B tag, then next tag as an O tag, then the likelihood of having an I tag or O tag more than a B tag. However this consideration is not sufficient to generalize and improve HMM with Viterbi. 
-- We could use additional features such as the first letter is a capital letter, all letters are capital letters, the previous word is a hyphen, or next word is a number, previous word + next word is an alphanumeric, all of which can act as better features for working with HMM. The idea is frequencies for each of these new features and their likelihood of being assigned a tag under a 5-gram approach, may work and seems like a reasonable approach to explore, but will be limiting to this approach alone.
+- [https://courses.engr.illinois.edu/cs447/fa2018/Slides/Lecture06.pdf](https://courses.engr.illinois.edu/cs447/fa2018/Slides/Lecture06.pdf) 
+- [https://courses.engr.illinois.edu/cs447/fa2018/Slides/Lecture07.pdf](https://courses.engr.illinois.edu/cs447/fa2018/Slides/Lecture07.pdf )
+- [https://www.coursera.org/lecture/dna-mutations/viterbi-learning-sM0CP](https://www.coursera.org/lecture/dna-mutations/viterbi-learning-sM0CP)
+- [https://www.coursera.org/lecture/language-processing/viterbi-algorithm-what-are-the-most-probable-tags-FMAba ](https://www.coursera.org/lecture/language-processing/viterbi-algorithm-what-are-the-most-probable-tags-FMAba )
+- [https://github.com/hmmlearn/hmmlearn/blob/master/lib/hmmlearn/hmm.py](https://github.com/hmmlearn/hmmlearn/blob/master/lib/hmmlearn/hmm.py)
 """
 
 import numpy as np
@@ -277,7 +278,7 @@ def viterbi_dp(start_p, trans_p, emission_p, end_scores):
   print(trellis)
   while index != -1:
       pred.append(index)
-      index = argmax_trellis[index, i]
+      index = backpointer[index, i]
       i -= 1
   
   pred.reverse()
@@ -384,13 +385,15 @@ def get_rare_word_counts(d):
 import math
 preds_new = []
 full_preds = []
+test_data = []
 max_e_rare, max_label_rare = get_rare_word_counts(d)
 for sent in test:
   this_sent = []
+  test_sent = []
   counter = 1
   for wt in sent:
 
-    w,_ = wt
+    w,tl = wt
     max_e = 0.0
     max_label = ""
     if (w,'I') in d:
@@ -412,15 +415,97 @@ for sent in test:
     
     #print(max_e, max_e_rare, w, d)
     full_preds.append((w, max_label, math.log(max_e, 2)))
-    this_sent.append('\t'.join([str(counter), w, max_label])+'\n' )
+    this_sent.append('\t'.join([str(counter), w, max_label,'\n']) )
+    
+    test_sent.append('\t'.join([str(counter), w, tl,'\n']) )
+    
     counter += 1
+  this_sent.append( '\n')
+  test_sent.append( '\n')
   preds_new.append(this_sent)
+  test_data.append(test_sent)
 
 full_preds[:5], preds_new[:10]
 
 len(preds_new) == len(test)
 
 with open("preds_hmm.csv", 'w') as f:
+  for s in preds_new:
+    print("".join(s))
+    f.write("".join(s))
+f
+
+with open("test_hmm.csv", 'w') as f:
+  for s in test_data:
+    print("".join(s))
+    f.write("".join(s))
+f
+
+filepath = r'/content/drive/MyDrive/Colab Notebooks/entity-extraction/hw3/hmm/F21-gene-test.txt'
+with open(filepath, "r", encoding="utf8", newline="\n") as file:
+  lines = file.readlines()
+test_data_f21 = []
+sent = []
+new_line_counter = 1
+print(len(lines))
+for i,line in enumerate(lines):
+  if line != "\n":
+    this_line = line.split("\t")
+
+    #print(this_line)
+    
+    sent.append(this_line[1].strip())
+  else:
+    new_line_counter += 1
+    test_data_f21.append(sent)
+    sent = []
+
+len(test_data_f21),new_line_counter
+
+preds_new = []
+full_preds = []
+max_e_rare, max_label_rare = get_rare_word_counts(d)
+for sent in test_data_f21:
+  this_sent = []
+  #test_sent = []
+  counter = 1
+  for w in sent:
+
+    
+    max_e = 0.0
+    max_label = ""
+    if (w,'I') in d:
+      if d[(w, 'I')] > max_e:
+        max_e = d[(w,'I')]
+        max_label = 'I'
+    if (w,'B') in d:
+      if d[(w, 'B')] > max_e:
+        max_e = d[(w,'B')]
+        max_label = 'B'
+    if (w,'O') in d:
+      if d[(w, 'O')] > max_e:
+        max_e = d[(w,'O')]
+        max_label = 'O'
+
+    if max_e == 0.0 and max_label == "":
+      max_e = max_e_rare
+      max_label = max_label_rare
+    
+    #print(max_e, max_e_rare, w, d)
+    full_preds.append((w, max_label, math.log(max_e, 2)))
+    this_sent.append('\t'.join([str(counter), w, max_label,'\n']) )
+    
+    #test_sent.append('\t'.join([str(counter), w, tl,'\n']) )
+    
+    counter += 1
+  this_sent.append( '\n')
+  #test_sent.append( '\n')
+  preds_new.append(this_sent)
+  #test_data.append(test_sent)
+
+preds_new
+
+with open("preds_hmm_f21.csv", 'w') as f:
   for s in preds_new:
     print("".join(s))
     f.write("".join(s))

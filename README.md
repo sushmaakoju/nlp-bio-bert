@@ -102,6 +102,7 @@ The probability of going from one state to another assumes Markov independence a
 Bi-gram case: product p(t_1 | t_i-1 )
 
 Tri-gram case: product (t_1 | t_i-1, t_i-2 )
+
 ![transition_p](https://user-images.githubusercontent.com/8979477/143825080-da3523a7-10dd-48da-b0e6-4fd3c2834599.png)
 
 Emission probabilities:

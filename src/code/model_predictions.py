@@ -53,7 +53,7 @@ def load_data2spacy_hmm(file_path):
       lines = file.readlines()
       print(len(lines))
       for line in lines:
-        #print(line, len(line.strip().split("\t")))
+        print(line, len(line.strip().split("\t")))
         line = [l.strip() for l in line.strip().split("\t")[1:]]
         if len(line) > 1:
             tag = line[1].strip()
@@ -89,7 +89,7 @@ def load_data2spacy_hmm(file_path):
                   sentence = " ".join(sentence)
                   training_data.append([sentence, {'entities': entities}])
                   ent_labels.append(ents)
-              #print(sentence, entities)
+              print(sentence, entities)
               end = 0
               start =0
               entities, sentence = [], []
