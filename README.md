@@ -1,26 +1,30 @@
-# nlp-hw3
-### NLP Homework 3
+# nlp
+### NLP BIOBERT
 ### Fall 2021, CU Boulder
 ###### Professor James H. Martin
 ###### Student: Sushma Akoju
 
-Homework Task:
+### focussed only on my contributions - analysis:
+The task was mainly focussed on data that has BIO tags. 
+The data with gene, proteins and biochemical interactions has its own Finite state automata and grammar.
+Thus this requires state-of-the-art NLP models that are specific to the biomedical data.
 
+### Task:
 
 Submit a report of what you did, your python code, and test results.  I will post a test set before the due date.  Run the test data through your system and submit the output.  The output format of your system should be the same as the input training data: one token per line, with a tab separating the token from its tag, and a blank line separating sentences.
 
-Analysis of Dataset:
+#### Analysis of Dataset:
 The dataset seems like a text from a medical journal consisting of articles on biomedical and/or clinical topics with sufficient reference to gene, proteins, protein interactions and biochemical interactions. The data represents I,O,B tags for each word for each sentence in the dataset. There are about 13,795 sentences. The vocabulary is different from regular English texts. The task in homework suggests to detect “Gene” entities which could appear in patterns such as “BII”, “BIO”, or even regex such as “BI[I]*[O]*”.
 
-The dataset and vocabulary likewise, underpinned by Binomial nomenclature, the scientific names of proteins, DNA structures, interactions of proteins, which indicate sufficient intersection of biomedical literature and the domain knowledge required to understand word embeddings, for example. The dataset brings forth interesting patterns such as having simple, english vocabulary appearing almost randomly placed next to biomedical literature. Despite such intricate patterns of word combinations, subword information, the information in the dataset seems to provide minimalistic features: word, tag combinations for each sentence in the dataset. The subword information seems to be key information required for this dataset.
+The dataset and vocabulary likewise, underpinned by specific nomenclature, the scientific names of proteins, DNA structures, interactions of proteins, which indicate sufficient intersection of biomedical literature and the domain knowledge required to understand word embeddings, for example. The dataset brings forth interesting patterns such as having simple, english vocabulary appearing almost randomly placed next to biomedical literature. Despite such intricate patterns of word combinations, subword information, the information in the dataset seems to provide minimalistic features: word, tag combinations for each sentence in the dataset. The subword information seems to be key information required for this dataset.
 
-Define the problem: 
+### Define the problem: 
 Given a word in a sentence, identify the one tag that can most likely represent the entity i.e. from the tags (B,I,O).
 
 Entity Sequence required for this problem:
 Understanding if a gene exists from a sequence of tags. Gene is likely defined by “BII” sequence of tags or “BI[I]*[O]*” irrespective of previous tags.
 
-Analysis about dataset:
+#### Analysis about dataset:
 Dataset is far apart from regular vocabulary such as the ones from other non-domain specific tasks such as POS tagging over BERT models. There are several rare words. There are rare words. 
 A lot of medical terms, bio medical terminology from this dataset are rare with frequencies <10.
 
