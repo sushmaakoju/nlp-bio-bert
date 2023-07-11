@@ -4,7 +4,11 @@
 ###### Professor James H. Martin
 ###### Student: Sushma Akoju
 
-### focussed only on my contributions - analysis:
+
+## Goal
+This is purely exploratory: the goal is to learn and practice more.
+
+### Focussed only on my contributions - analysis:
 The task was mainly focussed on data that has BIO tags. 
 The data with gene, proteins and biochemical interactions has its own Finite state automata and grammar.
 Thus this requires state-of-the-art NLP models that are specific to the biomedical data.
