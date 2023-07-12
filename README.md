@@ -117,6 +117,7 @@ Tri-gram case: product (t_1 | t_i-1, t_i-2 )
 Emission probabilities:
 The probability of emitting a word given a tag
 For 2-tag sequences:
+
 <img width="300" height="200" src="https://user-images.githubusercontent.com/8979477/143825078-dd757846-309d-4a3a-b80f-a3fc1b0512c6.png">
 
 For 3-tag sequences: 
