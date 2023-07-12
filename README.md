@@ -72,7 +72,7 @@ The two tag sequences and their frequencies:
 
 The three tag sequences and each of their frequencies:
 
-<img width="200" height="25" src="https://user-images.githubusercontent.com/8979477/143825092-a34adbdd-e2f4-4c75-89f4-f1c151514f1c.png">
+<img width="120" height="120" src="https://user-images.githubusercontent.com/8979477/143825092-a34adbdd-e2f4-4c75-89f4-f1c151514f1c.png">
 
 The tag frequencies suggest that OOO is most frequent and OOB, OBI, IOO, OBO, BII are most frequent.
 
