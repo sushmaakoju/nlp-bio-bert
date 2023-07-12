@@ -52,11 +52,11 @@ The max number of B tags a word can have is 265 compared to the max number of O 
 <img width="500" height="300" src="https://user-images.githubusercontent.com/8979477/143825095-ee320a4f-6196-4e2d-8362-05744373f96b.png">
 The most common top 10 words are: “.”, “the”, “of”, “-”, (',','and','in','a','(', 'to'.
 
-<img width="500" height="300" src="https://user-images.githubusercontent.com/8979477/143825094-9da9fdac-8d05-4ea6-be35-58ae64c3e510.png">
+<img width="400" height="100" src="https://user-images.githubusercontent.com/8979477/143825094-9da9fdac-8d05-4ea6-be35-58ae64c3e510.png">
 
 The least common top 10 words are: 'K713','hypercholesterolemic','lutein','P69','conference','Talk','Tele','cruciform','TE105'
 
-<img width="500" height="300" src="https://user-images.githubusercontent.com/8979477/143825093-67cc6edb-3d42-4bd4-8dd2-788667172adf.png">
+<img width="500" height="100" src="https://user-images.githubusercontent.com/8979477/143825093-67cc6edb-3d42-4bd4-8dd2-788667172adf.png">
 
 Most importantly, most of the tokens that are from biomedical /bioinformatics terminology itself are very less frequent or rare words.
 
