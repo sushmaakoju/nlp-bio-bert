@@ -12,6 +12,7 @@ This is purely exploratory: the goal is to learn and practice more.
 The task was mainly focussed on data that has BIO tags over biomedical data. 
 The data with gene, proteins and biochemical interactions has its own Finite state automata and grammar.
 Thus this requires state-of-the-art NLP models that are specific to the biomedical data.
+<a href="https://bair.berkeley.edu/blog/2019/11/04/proteins/">Can We Learn the Language of Proteins?</a>
 
 ### Task:
 
