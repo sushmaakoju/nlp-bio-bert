@@ -4,6 +4,9 @@
 ###### Professor James H. Martin
 ###### Student: Sushma Akoju
 
+Note: This is part of a class work and the datasets are not supposed to be publicly shared. The software libraries used in this work need to be a specific version from the year this notebook was run. Please note that the reason this work was shared much later after this work was done. This is because newer versions of software libraries came up and massive changes in how NLP models were used for this task have also evolved. Therefore this notebook may not run or work in exact same way due to mismatch of versions. Appreciate anyone who have been contacting me to share the datasets. 
+
+Thanks to everyone who found this notebook was helpful for their learning purposes and appreciate you reaching out to me to mention the same.
 
 ## Goal
 This is purely exploratory: the goal is to learn and practice more.
