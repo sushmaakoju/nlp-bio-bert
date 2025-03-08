@@ -9,7 +9,7 @@ Note: This is part of a class work and the datasets are not supposed to be publi
 Thanks to everyone who found this notebook was helpful for their learning purposes and appreciate you reaching out to me to mention the same.
 
 ## Code of conduct
-Resources were used for specific literature/code, it is provided in the respective implementation file. The code provided here is implicitly expected not to be replicated for homeworks, assignments or any other programming work. It is welcome to take inspiration, but it is implicitly expected to cite this resource if used for learning, inspiration esp. for any homeworks/projects purposes to respect the policies of your respective institution and the academic integrity for your class. Please refer <a href="https://github.com/sushmaakoju/nlp-bio-bert/blob/main/CODE_OF_CONDUCT.md"> code of conduct</a>.
+The software code provided here is implicitly expected not to be replicated for homeworks, assignments or any other programming work. It is welcome to take inspiration, but it is implicitly expected to cite this resource if used for learning, inspiration esp. for any homeworks/projects purposes to respect the policies of your respective institution and the academic integrity for your class. Please refer <a href="https://github.com/sushmaakoju/nlp-bio-bert/blob/main/CODE_OF_CONDUCT.md"> code of conduct</a>.
 
 ## Goal
 This is purely exploratory: the goal is to learn and practice more.
